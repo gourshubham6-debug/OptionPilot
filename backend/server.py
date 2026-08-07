@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from datetime import datetime
-from backend.smartapi_client import login
+from smartapi_client import login
 
 app = Flask(__name__)
 
