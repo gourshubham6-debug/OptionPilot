@@ -1,3 +1,10 @@
+@app.route("/status")
+def status():
+    return jsonify({
+        "market": "closed",
+        "signal": "waiting",
+        "server": "online"
+    })
 
 from flask import Flask, jsonify
 
