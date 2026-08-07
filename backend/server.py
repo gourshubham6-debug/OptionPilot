@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from datetime import datetime
+from backend.smartapi_client import login
 
 app = Flask(__name__)
 
@@ -27,11 +28,18 @@ def current_time():
 
 @app.route("/market")
 def market():
-    return jsonify({
-        "nifty": 25240.35,
-        "banknifty": 57210.80,
-        "market": "open"
-    })
+    try:
+        obj, session = login()
+
+        return jsonify({
+            "status": "connected",
+            "message": "Angel One login successful"
+        })
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        })
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
