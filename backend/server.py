@@ -1,10 +1,5 @@
+from flask import Flask, jsonify
 from datetime import datetime
-
-@app.route("/time")
-def current_time():
-    return jsonify({
-        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    })from flask import Flask, jsonify
 
 app = Flask(__name__)
 
@@ -23,10 +18,12 @@ def status():
         "signal": "waiting",
         "server": "online"
     })
+
 @app.route("/time")
 def current_time():
     return jsonify({
         "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     })
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
