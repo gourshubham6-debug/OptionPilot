@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from smartapi_client import login
 
 app = Flask(__name__)
@@ -24,10 +25,12 @@ def status():
 
 @app.route("/time")
 def current_time():
-    return jsonify({
-        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    })
+    india_time = datetime.now(ZoneInfo("Asia/Kolkata"))
 
+    return jsonify({
+        "time": india_time.strftime("%Y-%m-%d %H:%M:%S"),
+        "timezone": "Asia/Kolkata"
+    })
 
 @app.route("/market")
 def market():
