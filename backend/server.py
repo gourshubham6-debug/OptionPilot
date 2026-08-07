@@ -4,13 +4,12 @@ from smartapi_client import login
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def home():
     return jsonify({
         "app": "OptionPilot",
-        "status": "running",
-        "version": "0.1"
+        "version": "0.1",
+        "status": "running"
     })
 
 
@@ -18,8 +17,8 @@ def home():
 def status():
     return jsonify({
         "server": "online",
-        "market": "closed",
-        "signal": "waiting"
+        "market": "OPEN",
+        "signal": "WAIT"
     })
 
 
@@ -41,6 +40,24 @@ def market():
             "market": "OPEN",
             "signal": "WAIT",
             "message": "Angel One login successful"
+        })
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        })
+
+
+@app.route("/quote")
+def quote():
+    try:
+        obj, session = login()
+
+        # Live market data will be added here in V2
+        return jsonify({
+            "status": "ready",
+            "message": "Login successful. Quote API will be added next."
         })
 
     except Exception as e:
