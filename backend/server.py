@@ -1,10 +1,4 @@
-@app.route("/market")
-def market():
-    return jsonify({
-        "nifty": 25240.35,
-        "banknifty": 57210.80,
-        "market": "open"
-    })from flask import Flask, jsonify
+from flask import Flask, jsonify
 from datetime import datetime
 
 app = Flask(__name__)
@@ -30,6 +24,7 @@ def current_time():
     return jsonify({
         "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     })
+
 @app.route("/market")
 def market():
     return jsonify({
@@ -37,5 +32,6 @@ def market():
         "banknifty": 57210.80,
         "market": "open"
     })
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
