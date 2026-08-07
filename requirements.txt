@@ -1,1 +1,6 @@
 Flask
+gunicorn
+python-dotenv
+smartapi-python
+pyotp
+requests
