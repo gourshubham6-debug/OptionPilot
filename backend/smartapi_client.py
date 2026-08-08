@@ -23,3 +23,24 @@ def login():
     )
 
     return obj, session
+
+
+def get_index_quotes():
+    obj, session = login()
+
+    nifty = obj.ltpData(
+        "NSE",
+        "NIFTY 50",
+        "99926000"
+    )
+
+    sensex = obj.ltpData(
+        "BSE",
+        "SENSEX",
+        "99919000"
+    )
+
+    return {
+        "nifty": nifty.get("data"),
+        "sensex": sensex.get("data")
+    }

@@ -1,9 +1,12 @@
 from flask import Flask, jsonify
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from smartapi_client import login
+
+from smartapi_client import get_index_quotes, login
+
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def home():
@@ -32,6 +35,7 @@ def current_time():
         "timezone": "Asia/Kolkata"
     })
 
+
 @app.route("/market")
 def market():
     try:
@@ -55,12 +59,15 @@ def market():
 @app.route("/quote")
 def quote():
     try:
-        obj, session = login()
+        quotes = get_index_quotes()
 
-        # Live market data will be added here in V2
         return jsonify({
-            "status": "ready",
-            "message": "Login successful. Quote API will be added next."
+            "status": "success",
+            "timestamp": datetime.now(
+                ZoneInfo("Asia/Kolkata")
+            ).strftime("%Y-%m-%d %H:%M:%S"),
+            "nifty": quotes.get("nifty"),
+            "sensex": quotes.get("sensex")
         })
 
     except Exception as e:
